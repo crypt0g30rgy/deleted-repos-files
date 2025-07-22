@@ -15,3 +15,17 @@ chmod +x git_deleted_files.sh
 ./git_deleted_files.sh /path/to/repo [deleted/all]
 ```
 
+3. Example Output
+
+```bash
+commit_hash_1 - Date of deletion: 2023-07-15 14:23:45 -0700
+Deleted files:
+path/to/deleted/file1.txt
+path/to/deleted/file2.txt
+Git Checkout command: git checkout commit_hash_1
+
+commit_hash_2 - Date of deletion: 2023-07-10 10:05:30 -0700
+Deleted files:
+path/to/deleted/file3.txt
+Git Checkout command: git checkout commit_hash_2
+```
