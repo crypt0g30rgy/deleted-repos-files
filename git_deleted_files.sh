@@ -5,12 +5,12 @@ get_deleted_files_in_commit() {
     commit_hash=$1
     commit_date=$(git show -s --format=%ci $commit_hash)
     deleted_files=$(git diff --name-status $commit_hash^! | grep -e 'D' | awk '{print $2}')
-    
+
     if [ ! -z "$deleted_files" ]; then
-        echo "$commit_hash - Date of deletion: $commit_date"
-        echo "Deleted files:"
-        echo "$deleted_files"
-        echo "Git Checkout command: git checkout $commit_hash"
+        echo -e "\033[1;32m$commit_hash - Date of deletion: $commit_date\033[0m"  # Green for commit hash and date
+        echo -e "\033[1;31mDeleted files:\033[0m"  # Red for 'Deleted files' text
+        echo -e "\033[0;33m$deleted_files\033[0m"  # Yellow for file names
+        echo -e "\033[1;34mGit Checkout command: git checkout $commit_hash\033[0m"  # Blue for command
         echo
     fi
 }
@@ -25,7 +25,10 @@ list_commits_with_deleted_files() {
 
 # Function to list all commits (with or without deleted files)
 list_all_commits() {
-    git log --pretty=format:"%H - %s" --reverse
+    git log --pretty=format:"%H - %s" --reverse | while read commit_hash
+    do
+        echo -e "\033[1;36m$commit_hash - $commit_subject\033[0m"  # Cyan for commit hash and subject
+    done
 }
 
 # Check if a repository path is provided
@@ -40,7 +43,7 @@ fi
 # Navigate to the provided repository path
 repo_path=$1
 if [ ! -d "$repo_path/.git" ]; then
-    echo "The specified directory is not a git repository."
+    echo -e "\033[1;31mThe specified directory is not a git repository.\033[0m"  # Red for error message
     exit 1
 fi
 
