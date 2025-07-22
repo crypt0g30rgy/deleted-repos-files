@@ -9,8 +9,9 @@ A bash script to retrieve deletd files over the git repos life
 chmod +x git_deleted_files.sh
 ```
 
-2. Run the script by providing the repository path:
+2. Run the script by providing the repository path with the filter:
 
 ```bash
-./git_deleted_files.sh /path/to/repo
+./git_deleted_files.sh /path/to/repo [deleted/all]
 ```
+
