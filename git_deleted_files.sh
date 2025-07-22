@@ -3,10 +3,14 @@
 # Function to check if deleted files exist in a commit
 get_deleted_files_in_commit() {
     commit_hash=$1
+    commit_date=$(git show -s --format=%ci $commit_hash)
     deleted_files=$(git diff --name-status $commit_hash^! | grep -e 'D' | awk '{print $2}')
+    
     if [ ! -z "$deleted_files" ]; then
-        echo "$commit_hash - Deleted files:"
+        echo "$commit_hash - Date of deletion: $commit_date"
+        echo "Deleted files:"
         echo "$deleted_files"
+        echo "Git Checkout command: git checkout $commit_hash"
         echo
     fi
 }
